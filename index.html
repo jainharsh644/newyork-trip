@@ -215,27 +215,30 @@ a:active { color: #1e40af; }
   <div class="body">
     <p style="font-size:13px;color:#4b5563;margin-bottom:14px;">Two PASSES cover most attractions. Then 4 things must be booked separately. Tap to mark done.</p>
 
-    <!-- PASS 1: CityPASS NYC -->
+    <!-- INDIVIDUAL BOOKINGS NYC (no bundle - cheaper this way without 9/11 Museum) -->
     <div style="background:#eff6ff;border:2px solid #3b82f6;border-radius:10px;padding:12px;margin-bottom:14px;">
-      <p style="font-size:14px;font-weight:700;color:#1e3a8a;">📦 PASS 1 — CityPASS NYC</p>
-      <p style="font-size:13px;color:#1e3a8a;margin-top:2px;font-weight:600;">$146 adult / $124 kid</p>
-      <p style="font-size:12px;color:#4b5563;margin-top:6px;">
-        <b>Buy 1 pass per person → covers ALL 4 of these</b>
-        (you don't book each separately):
+      <p style="font-size:14px;font-weight:700;color:#1e3a8a;">🗽 NYC ATTRACTIONS — book each separately</p>
+      <p style="font-size:11px;color:#6b7280;margin-top:4px;line-height:1.4;">
+        Without the 9/11 Museum, CityPASS bundle isn't worth it — individual tickets are cheaper.
       </p>
-      <ul style="margin:8px 0 8px 20px;font-size:13px;color:#111827;line-height:1.7;">
-        <li>✅ Statue of Liberty + Ellis Island</li>
-        <li>✅ 9/11 Memorial Museum</li>
-        <li>✅ Edge at Hudson Yards</li>
-        <li>✅ Top of the Rock</li>
-      </ul>
-      <div class="checkitem" onclick="ck(this)" style="margin-top:6px;">
-        <div class="cb"></div>
-        <div class="ck-text"><b>Buy CityPASS NYC for 3 people</b> · <a href="https://www.citypass.com/new-york" target="_blank">citypass.com/new-york</a></div>
-        <div class="ck-cost">~$416 total</div>
+
+      <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+        <div class="ck-text"><b>Statue of Liberty + Ellis Island</b> — Mon · <a href="https://www.statuecruises.com" target="_blank">statuecruises.com</a></div>
+        <div class="ck-cost">$25 / $16</div>
       </div>
-      <p style="font-size:11px;color:#6b7280;margin-top:8px;line-height:1.4;">
-        <b>If you choose individual tickets instead:</b> SoL $25/$16 · 9/11 $33/$21 · Edge $44/$38 · Top of Rock $43/$37. Roughly same cost — bundle is simpler.
+
+      <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+        <div class="ck-text"><b>Top of the Rock</b> — Sun · <a href="https://www.rockefellercenter.com/attractions/top-of-the-rock-observation-deck/" target="_blank">rockefellercenter.com</a></div>
+        <div class="ck-cost">$43 / $37</div>
+      </div>
+
+      <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+        <div class="ck-text"><b>Edge at Hudson Yards</b> (sunset slot ~6:30 PM) — Tue · <a href="https://www.edgenyc.com" target="_blank">edgenyc.com</a></div>
+        <div class="ck-cost">$44 / $38</div>
+      </div>
+
+      <p style="font-size:12px;color:#4b5563;margin-top:8px;line-height:1.5;">
+        <b>Total NYC tickets (3 people):</b> ~$315 total
       </p>
     </div>
 
@@ -404,7 +407,7 @@ a:active { color: #1e40af; }
 <div class="day open">
   <div class="day-h" onclick="td(this)">
     <div class="day-num c2"><div class="dd">MON</div><div class="nn">4</div></div>
-    <div class="day-i"><div class="dt">Statue of Liberty · 9/11 · Charging Bull · Brooklyn Bridge</div><div class="ds">Big Lower Manhattan day · all walking + 1 train</div></div>
+    <div class="day-i"><div class="dt">Statue of Liberty · Charging Bull · 9/11 (outdoor) · Brooklyn Bridge</div><div class="ds">Big Lower Manhattan day · all walking + 1 train</div></div>
     <div class="arrow">▶</div>
   </div>
   <div class="day-body">
@@ -441,39 +444,38 @@ a:active { color: #1e40af; }
       </div>
       <div class="t-item">
         <div class="t-time">2:20</div>
-        <div class="t-title">🚶 Walk to 9/11 Memorial</div>
-        <div class="t-desc"><b>10-15 min walk north</b> via Broadway / Trinity Pl. Pass the New York Stock Exchange, Trinity Church on the way.</div>
+        <div class="t-title">🚶 Walk through Wall Street to 9/11 area</div>
+        <div class="t-desc"><b>10-15 min walk north</b> via Broadway / Trinity Pl. See NYSE building, Trinity Church on the way.</div>
         <div class="tags"><span class="tag tr">Walk · 12 min</span></div>
       </div>
-      <div class="t-item must book">
+      <div class="t-item">
         <div class="t-time">2:45</div>
-        <div class="t-title">9/11 Memorial pools (outdoor) + Museum</div>
-        <div class="t-desc">The two reflecting pools where towers stood — read names engraved on bronze. Outdoor memorial is free + open. Museum entrance is at the south pool. Allow 1.5-2 hours for museum.</div>
-        <div class="tip">Note: 9/11 Museum is very emotional. May be heavy for young kids. You can do just the outdoor memorial pools (free) and skip museum if you prefer.</div>
-        <div class="tags"><span class="tag must">Must</span><span class="tag book">Pre-book</span></div>
+        <div class="t-title">9/11 Memorial pools (OUTDOOR ONLY · free)</div>
+        <div class="t-desc">The two reflecting pools where the Twin Towers stood. Names of victims engraved on bronze around the edges. Quiet, reflective space. <b>20-30 min walk-around — just the outdoor memorial. NOT the museum.</b></div>
+        <div class="tags"><span class="tag fe">Free · outdoor only</span></div>
       </div>
       <div class="t-item">
-        <div class="t-time">4:30</div>
+        <div class="t-time">3:30</div>
         <div class="t-title">🚶 Walk to Brooklyn Bridge</div>
         <div class="t-desc"><b>10 min walk east</b> from 9/11 → up Park Row → Brooklyn Bridge pedestrian entrance is right at City Hall.</div>
         <div class="tags"><span class="tag tr">Walk · 10 min</span></div>
       </div>
       <div class="t-item must">
-        <div class="t-time">5:00</div>
+        <div class="t-time">4:00</div>
         <div class="t-title">Brooklyn Bridge walk</div>
         <div class="t-desc">Walk from Manhattan side toward DUMBO Brooklyn — 30 min full crossing. Or walk halfway, take photos, walk back. Iconic Manhattan + Brooklyn views.</div>
         <div class="tags"><span class="tag must">Must</span><span class="tag fe">Free</span></div>
       </div>
       <div class="t-item">
-        <div class="t-time">6:00</div>
+        <div class="t-time">5:30</div>
         <div class="t-title">🚇 Back to hotel</div>
         <div class="t-desc"><b>Walk back to City Hall</b> · take <b>4 or 5 train UPTOWN</b> from Brooklyn Bridge-City Hall (green line) · ride <b>3 stops · 12 min</b> · exit at <b>Grand Central-42 St</b> · walk 5 min west to hotel.<br><b>OR easier:</b> Walk 5 min south to Fulton St, take <b>2 or 3 train UPTOWN</b> direct to Times Sq-42 St (5 stops, 12 min).</div>
         <div class="tags"><span class="tag tr">2/3 train · 12 min</span></div>
       </div>
       <div class="t-item">
-        <div class="t-time">7:00 PM</div>
+        <div class="t-time">6:30 PM</div>
         <div class="t-title">Dinner near hotel</div>
-        <div class="t-desc">Saravanaa Bhavan (subway 5 min) or HanGawi (Korean veg, 10 min walk). Big day done.</div>
+        <div class="t-desc">Saravanaa Bhavan (subway 5 min) or HanGawi (Korean veg, 10 min walk). Big day done — earlier finish than yesterday.</div>
       </div>
     </div>
   </div>
@@ -691,7 +693,7 @@ a:active { color: #1e40af; }
   <h2 onclick="t(this)">NYC Must-Do List <span class="arrow">▶</span></h2>
   <div class="body">
     <div class="list-item"><div class="num">1</div><div class="info"><div class="name">Statue of Liberty + Ellis Island</div><div class="meta">Mon · Battery Park ferry · Pre-book</div></div></div>
-    <div class="list-item"><div class="num">2</div><div class="info"><div class="name">9/11 Memorial + Museum</div><div class="meta">Mon · Lower Manhattan · Pre-book</div></div></div>
+    <div class="list-item"><div class="num">2</div><div class="info"><div class="name">9/11 Memorial pools (outdoor)</div><div class="meta">Mon · Lower Manhattan · Free · Museum SKIPPED</div></div></div>
     <div class="list-item"><div class="num">3</div><div class="info"><div class="name">Charging Bull + Fearless Girl</div><div class="meta">Mon · Wall Street · Free</div></div></div>
     <div class="list-item"><div class="num">4</div><div class="info"><div class="name">Brooklyn Bridge walk</div><div class="meta">Mon · Free</div></div></div>
     <div class="list-item"><div class="num">5</div><div class="info"><div class="name">Edge at Hudson Yards (sunset)</div><div class="meta">Tue · Pre-book</div></div></div>
