@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>NY + Niagara Trip · May 2-8</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: #f8f9fb; color: #1a1a1a;
+  max-width: 720px; margin: 0 auto; line-height: 1.5; font-size: 17px;
+  padding-bottom: 40px;
+}
+.hero {
+  padding: 24px 18px 22px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #4338ca 100%);
+  color: #fff;
+}
+.hero .lbl { font-size: 11px; opacity: 0.9; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+.hero h1 { font-size: 26px; margin-top: 4px; font-weight: 800; line-height: 1.2; }
+.hero .dates { font-size: 14px; opacity: 0.95; margin-top: 6px; }
+.hero .who { font-size: 13px; margin-top: 8px; opacity: 0.85; }
+
+.section { background: #fff; margin: 14px; border-radius: 12px; border: 1px solid #e5e7eb; }
+.section h2 {
+  padding: 14px 16px; font-size: 17px; font-weight: 700; color: #1e3a8a;
+  border-bottom: 1px solid #e5e7eb; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.section h2 .arrow { font-size: 14px; color: #6b7280; transition: transform 0.2s; }
+.section.open h2 .arrow { transform: rotate(90deg); }
+.section .body { display: none; padding: 14px 16px; }
+.section.open .body { display: block; }
+
+/* Day card */
+.day { margin: 12px 16px 0; border-radius: 10px; border: 1px solid #e5e7eb; background: #fff; overflow: hidden; }
+.day-h {
+  padding: 14px 16px; cursor: pointer; display: flex; align-items: center; gap: 12px;
+}
+.day-h:active { background: #f3f4f6; }
+.day-num {
+  width: 50px; height: 50px; border-radius: 10px; flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-weight: 800; color: #fff;
+}
+.c0 { background: linear-gradient(135deg,#7c3aed,#a78bfa); }
+.c1 { background: linear-gradient(135deg,#dc2626,#f59e0b); }
+.c2 { background: linear-gradient(135deg,#059669,#34d399); }
+.c3 { background: linear-gradient(135deg,#2563eb,#60a5fa); }
+.c4 { background: linear-gradient(135deg,#0891b2,#22d3ee); }
+.c5 { background: linear-gradient(135deg,#ea580c,#fb923c); }
+.day-num .dd { font-size: 9px; opacity: 0.85; letter-spacing: 0.5px; }
+.day-num .nn { font-size: 18px; line-height: 1; }
+.day-i { flex: 1; }
+.day-i .dt { font-size: 16px; font-weight: 700; color: #111827; }
+.day-i .ds { font-size: 12px; color: #6b7280; margin-top: 2px; }
+.day-h .arrow { color: #9ca3af; font-size: 14px; }
+.day.open .day-h .arrow { transform: rotate(90deg); }
+.day-body { display: none; padding: 0 16px 16px; border-top: 1px solid #f3f4f6; }
+.day.open .day-body { display: block; }
+
+.timeline { padding-left: 18px; border-left: 2px solid #e5e7eb; margin-top: 12px; }
+.t-item { position: relative; padding: 10px 0 10px 14px; }
+.t-item::before {
+  content: ''; position: absolute; left: -26px; top: 18px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #fff; border: 2px solid #d1d5db;
+}
+.t-item.must::before { background: #dc2626; border-color: #dc2626; }
+.t-item.book::before { background: #f59e0b; border-color: #f59e0b; }
+.t-time { font-size: 12px; font-weight: 700; color: #4338ca; letter-spacing: 0.5px; }
+.t-title { font-size: 15px; font-weight: 700; color: #111827; margin-top: 2px; }
+.t-desc { font-size: 13px; color: #4b5563; margin-top: 2px; line-height: 1.4; }
+.tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+.tag {
+  font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 4px;
+}
+.tag.book { background: #fef3c7; color: #92400e; }
+.tag.must { background: #fee2e2; color: #991b1b; }
+.tag.fo { background: #dcfce7; color: #166534; }
+.tag.tr { background: #dbeafe; color: #1e40af; }
+.tag.fe { background: #f3f4f6; color: #4b5563; }
+.tag.kd { background: #fce7f3; color: #9f1239; }
+.tip {
+  font-size: 12px; background: #fef3c7; color: #78350f;
+  padding: 8px 10px; border-radius: 6px; margin-top: 6px; line-height: 1.4;
+  border-left: 3px solid #f59e0b;
+}
+
+/* Lists */
+.list-item {
+  padding: 10px 0; border-bottom: 1px solid #f3f4f6;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.list-item:last-child { border-bottom: 0; }
+.list-item .num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #4338ca; color: #fff; font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.list-item .info { flex: 1; }
+.list-item .name { font-weight: 700; font-size: 14px; }
+.list-item .meta { font-size: 12px; color: #6b7280; margin-top: 2px; }
+
+/* Pre-book table */
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 6px; }
+th, td { padding: 8px 6px; text-align: left; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+th { font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+td.cost { text-align: right; font-weight: 600; color: #059669; }
+a { color: #2563eb; text-decoration: none; word-break: break-word; }
+a:active { color: #1e40af; }
+
+.checkitem {
+  display: flex; align-items: center; gap: 10px; padding: 8px 0;
+  border-bottom: 1px solid #f3f4f6; cursor: pointer; user-select: none;
+}
+.checkitem:last-child { border-bottom: 0; }
+.cb {
+  width: 20px; height: 20px; border-radius: 4px; border: 2px solid #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; flex-shrink: 0;
+}
+.checkitem.done .cb { background: #059669; border-color: #059669; color: #fff; }
+.checkitem.done .ck-text { text-decoration: line-through; color: #9ca3af; }
+.ck-text { flex: 1; font-size: 14px; }
+.ck-cost { font-size: 12px; color: #6b7280; font-weight: 600; }
+
+.food-row {
+  padding: 10px 0; border-bottom: 1px solid #f3f4f6;
+}
+.food-row:last-child { border-bottom: 0; }
+.food-name { font-weight: 700; font-size: 14px; color: #111827; }
+.food-meta { font-size: 12px; color: #6b7280; margin-top: 2px; }
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
+.kpi {
+  background: #f9fafb; border-radius: 8px; padding: 10px 12px; border: 1px solid #e5e7eb;
+}
+.kpi .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: #6b7280; font-weight: 600; }
+.kpi .val { font-size: 16px; font-weight: 700; color: #111827; margin-top: 2px; }
+
+.btn {
+  display: block; padding: 12px 16px; background: #4338ca; color: #fff;
+  text-align: center; border-radius: 8px; font-weight: 600; font-size: 14px;
+  margin-top: 10px; text-decoration: none;
+}
+.btn:active { background: #3730a3; }
+.btn.s { background: #f3f4f6; color: #1f2937; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="lbl">Family Trip</div>
+  <h1>NYC + Niagara Falls</h1>
+  <div class="dates">Sat May 2 – Fri May 8, 2026</div>
+  <div class="who">2 adults + 1 kid · 4 nights NYC · 2 nights Niagara</div>
+</div>
+
+<!-- TRIP OVERVIEW -->
+<div class="section open">
+  <h2 onclick="t(this)">Trip Overview <span class="arrow">▶</span></h2>
+  <div class="body">
+    <div class="grid2">
+      <div class="kpi"><div class="lbl">Total nights</div><div class="val">6</div></div>
+      <div class="kpi"><div class="lbl">Cities</div><div class="val">2</div></div>
+      <div class="kpi"><div class="lbl">Must-do NYC</div><div class="val">7</div></div>
+      <div class="kpi"><div class="lbl">Must-do Niagara</div><div class="val">4</div></div>
+    </div>
+    <p style="margin-top:14px;font-size:13px;color:#4b5563;">
+      Each day's plan ends by <b>6 PM</b>. Evenings = dinner, Times Square or rest.
+      Daily timelines are mobile-friendly and tappable.
+    </p>
+  </div>
+</div>
+
+<!-- PRE-BOOK CHECKLIST -->
+<div class="section open">
+  <h2 onclick="t(this)">Pre-Book Checklist (do this week!) <span class="arrow">▶</span></h2>
+  <div class="body">
+    <p style="font-size:13px;color:#4b5563;margin-bottom:8px;">Tap to mark done. Don't show up without these — many sell out.</p>
+    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+      <div class="ck-text"><b>Statue of Liberty + Ellis Island</b> — Mon · <a href="https://www.statuecruises.com" target="_blank">statuecruises.com</a></div>
+      <div class="ck-cost">$25 / $16</div>
+    </div>
+    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+      <div class="ck-text"><b>9/11 Memorial Museum</b> — Mon · <a href="https://www.911memorial.org" target="_blank">911memorial.org</a></div>
+      <div class="ck-cost">$33 / $21</div>
+    </div>
+    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+      <div class="ck-text"><b>One World Observatory</b> — Mon · <a href="https://oneworldobservatory.com" target="_blank">oneworldobservatory.com</a></div>
+      <div class="ck-cost">$44 / $38</div>
+    </div>
+    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+      <div class="ck-text"><b>Top of the Rock</b> — Sun · <a href="https://www.rockefellercenter.com/attractions/top-of-the-rock-observation-deck/" target="_blank">rockefellercenter.com</a></div>
+      <div class="ck-cost">$43 / $37</div>
+    </div>
+    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+      <div class="ck-text"><b>Color Factory</b> (KID FAVORITE) — Sun · <a href="https://www.colorfactory.co" target="_blank">colorfactory.co</a></div>
+      <div class="ck-cost">$39 each</div>
+    </div>
+    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+      <div class="ck-text"><b>Liberty Helicopter Tour</b> — Tue · <a href="https://libertyhelicopter.com" target="_blank">libertyhelicopter.com</a></div>
+      <div class="ck-cost">$214+</div>
+    </div>
+    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+      <div class="ck-text"><b>Natural History Museum</b> — Tue · <a href="https://www.amnh.org" target="_blank">amnh.org</a></div>
+      <div class="ck-cost">$28 / $16</div>
+    </div>
+    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+      <div class="ck-text"><b>Niagara Falls USA Discovery Pass</b> — Wed · <a href="https://www.niagarafallsstatepark.com/plan-your-visit/discover-niagara-shuttle-and-discovery-pass" target="_blank">niagarafallsstatepark.com</a></div>
+      <div class="ck-cost">$52 / $42</div>
+    </div>
+    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+      <div class="ck-text"><b>Rental car at BUF airport</b> — May 6 · book now</div>
+      <div class="ck-cost">~$60/day</div>
+    </div>
+    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+      <div class="ck-text"><b>NYC hotel</b> — confirm address + check-in time</div>
+      <div class="ck-cost"></div>
+    </div>
+    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+      <div class="ck-text"><b>Niagara hotel</b> — Sheraton at the Falls / Hilton Niagara Falls</div>
+      <div class="ck-cost"></div>
+    </div>
+
+    <p style="margin-top:14px;font-size:12px;color:#6b7280;line-height:1.5;">
+      <b>Save money tip:</b> CityPASS NYC ($146 adult / $124 kid) bundles 5 attractions including
+      Top of the Rock, Statue of Liberty, 9/11, and AMNH. Saves ~$60/person if doing all.
+      <a href="https://www.citypass.com/new-york" target="_blank">citypass.com/new-york</a>
+    </p>
+  </div>
+</div>
+
+<!-- ====== DAY-BY-DAY ====== -->
+
+<!-- SAT MAY 2: ARRIVAL -->
+<div class="day open">
+  <div class="day-h" onclick="td(this)">
+    <div class="day-num c0"><div class="dd">SAT</div><div class="nn">2</div></div>
+    <div class="day-i"><div class="dt">Fly PHX → NYC</div><div class="ds">Land 11 PM · Hotel only · Rest</div></div>
+    <div class="arrow">▶</div>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-time">EVENING</div>
+        <div class="t-title">Land at JFK / LGA / EWR around 11 PM</div>
+        <div class="t-desc">Use Uber or Lyft directly to hotel — don't fight subway with luggage at midnight. JFK ~$70, LGA ~$50, EWR ~$80 cab/Uber.</div>
+        <div class="tags"><span class="tag tr">Uber/Lyft only</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">MIDNIGHT</div>
+        <div class="t-title">Check in to hotel · Sleep</div>
+        <div class="t-desc">Big day tomorrow. Don't try to do anything tonight.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUN MAY 3: MIDTOWN -->
+<div class="day open">
+  <div class="day-h" onclick="td(this)">
+    <div class="day-num c1"><div class="dd">SUN</div><div class="nn">3</div></div>
+    <div class="day-i"><div class="dt">Midtown · Color Factory · Times Square</div><div class="ds">Top of Rock · Color Factory · Times Square at night</div></div>
+    <div class="arrow">▶</div>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-time">9:00 AM</div>
+        <div class="t-title">Hotel breakfast · Easy start</div>
+        <div class="t-desc">No rush. Day 1 — let the kid wake up naturally.</div>
+      </div>
+      <div class="t-item must">
+        <div class="t-time">10:30</div>
+        <div class="t-title">Top of the Rock — observation deck</div>
+        <div class="t-desc">30 Rockefeller Plaza. Best Manhattan view (you can see Empire State Building from here, you can't from inside ESB). 1 hour.</div>
+        <div class="tags"><span class="tag must">Must</span><span class="tag book">Pre-book</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">12:00 PM</div>
+        <div class="t-title">Walk Rockefeller Center + St. Patrick's Cathedral</div>
+        <div class="t-desc">Free to walk through. Beautiful golden statue (Prometheus), shops, ice rink area. 30 min.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">12:30</div>
+        <div class="t-title">Lunch — Saravanaa Bhavan or Pongal</div>
+        <div class="t-desc">Take subway 6 train to 28 St — Curry Hill cluster. Pure veg South Indian. Or Veggie Grill (47th St) for kid-friendly burgers.</div>
+        <div class="tags"><span class="tag fo">Veg Indian</span></div>
+      </div>
+      <div class="t-item must book">
+        <div class="t-time">2:30 PM</div>
+        <div class="t-title">Color Factory (KID HIGHLIGHT)</div>
+        <div class="t-desc">251 Spring St, SoHo. Interactive color experience — ball pit, color rooms, hands-on. 90 min. Take subway C/E to Spring St.</div>
+        <div class="tags"><span class="tag must">Must</span><span class="tag kd">Kid favorite</span><span class="tag book">Pre-book</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">4:30</div>
+        <div class="t-title">High Line walk</div>
+        <div class="t-desc">Elevated park on old rail tracks. Easy, kid-friendly, scenic. Walk from Gansevoort St entrance (Meatpacking) heading north. 45 min.</div>
+        <div class="tags"><span class="tag fe">Free</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">5:30</div>
+        <div class="t-title">Back to hotel · Rest</div>
+        <div class="t-desc">Recharge before evening Times Square.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">7:30 PM</div>
+        <div class="t-title">Dinner near Times Square</div>
+        <div class="t-desc">Beyond Sushi (vegan), Le Pain Quotidien (veg-friendly), or back to Curry Hill. Kid loves Bareburger (veggie burgers).</div>
+        <div class="tags"><span class="tag fo">Dinner</span></div>
+      </div>
+      <div class="t-item must">
+        <div class="t-time">9:00</div>
+        <div class="t-title">Times Square at night</div>
+        <div class="t-desc">THIS is when Times Square is best. Lights, billboards, energy. Take photos with the M&M store, Disney store, ball-drop spot. 1 hour. Subway: 1/2/3/7/N/Q/R/W to Times Sq-42 St.</div>
+        <div class="tags"><span class="tag must">Must</span><span class="tag fe">Free</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MON MAY 4: STATUE OF LIBERTY + 9/11 + WTC -->
+<div class="day open">
+  <div class="day-h" onclick="td(this)">
+    <div class="day-num c2"><div class="dd">MON</div><div class="nn">4</div></div>
+    <div class="day-i"><div class="dt">Statue of Liberty · 9/11 · World Trade Center</div><div class="ds">Big history day · Lower Manhattan · Brooklyn Bridge</div></div>
+    <div class="arrow">▶</div>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-time">7:30 AM</div>
+        <div class="t-title">Hotel breakfast · Get going early</div>
+        <div class="t-desc">Statue of Liberty ferry sells out — first ferry around 8:30 AM is best.</div>
+      </div>
+      <div class="t-item must book">
+        <div class="t-time">9:00</div>
+        <div class="t-title">Statue of Liberty + Ellis Island ferry</div>
+        <div class="t-desc">Departs from Battery Park (subway 1 to South Ferry, or 4/5 to Bowling Green). Boat takes you past statue, then Ellis Island. Allow 4 hours total.</div>
+        <div class="tip"><b>Important:</b> Pick up tickets at "Will Call" 30 min early. Security check like airport. No big bags. Bring water, hat, sunscreen.</div>
+        <div class="tags"><span class="tag must">Must</span><span class="tag book">Pre-book</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">1:00 PM</div>
+        <div class="t-title">Lunch — Le Botaniste (Stone St)</div>
+        <div class="t-desc">Vegan bowls, 10 min walk from Battery Park. Or Beyond Sushi at Brookfield Place (3 min from 9/11).</div>
+        <div class="tags"><span class="tag fo">Vegan lunch</span></div>
+      </div>
+      <div class="t-item must book">
+        <div class="t-time">2:00</div>
+        <div class="t-title">9/11 Memorial + Museum</div>
+        <div class="t-desc">The two reflecting pools where towers stood. Museum is intense and powerful. Allow 2 hours. Memorial outdoor part is free; museum is ticketed.</div>
+        <div class="tip">Note: 9/11 Museum is very emotional. May be heavy for young kids. You can do just the outdoor memorial pools (free) and skip museum if you prefer.</div>
+        <div class="tags"><span class="tag must">Must</span><span class="tag book">Pre-book</span></div>
+      </div>
+      <div class="t-item must book">
+        <div class="t-time">4:00</div>
+        <div class="t-title">One World Observatory (top of WTC)</div>
+        <div class="t-desc">Tallest building in the Western Hemisphere. SkyPod elevator with time-lapse video. Stunning views — the Statue of Liberty visible from up here. 1 hour.</div>
+        <div class="tags"><span class="tag must">Must</span><span class="tag book">Pre-book</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">5:15 PM</div>
+        <div class="t-title">Brooklyn Bridge walk (optional, free)</div>
+        <div class="t-desc">If energy allows. Walk from Manhattan side to DUMBO Brooklyn — 30 min one-way, iconic views. Or just photo from Manhattan side and skip walk.</div>
+        <div class="tags"><span class="tag fe">Free</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">6:30</div>
+        <div class="t-title">Back to hotel · Dinner nearby</div>
+        <div class="t-desc">Saravanaa Bhavan, HanGawi (Korean veg, Midtown), or hotel area. Big day done.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TUE MAY 5: CENTRAL PARK + AMNH + HELICOPTER -->
+<div class="day open">
+  <div class="day-h" onclick="td(this)">
+    <div class="day-num c3"><div class="dd">TUE</div><div class="nn">5</div></div>
+    <div class="day-i"><div class="dt">Central Park · Natural History · Helicopter</div><div class="ds">Most fun day for kid · Helicopter ride afternoon</div></div>
+    <div class="arrow">▶</div>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-time">8:30 AM</div>
+        <div class="t-title">Breakfast · Subway to AMNH</div>
+        <div class="t-desc">B/C train to 81 St — Museum of Natural History.</div>
+      </div>
+      <div class="t-item must book">
+        <div class="t-time">9:30</div>
+        <div class="t-title">American Museum of Natural History</div>
+        <div class="t-desc">DINOSAURS! Blue whale! Planetarium! Largest natural history museum in the world. 2.5-3 hours. Kid will lose their mind.</div>
+        <div class="tags"><span class="tag must">Must</span><span class="tag kd">Kid heaven</span><span class="tag book">Pre-book</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">12:30 PM</div>
+        <div class="t-title">Lunch — Le Botaniste or Veggie Grill nearby</div>
+        <div class="t-desc">Or grab pizza slice + salad — quick refuel.</div>
+        <div class="tags"><span class="tag fo">Lunch</span></div>
+      </div>
+      <div class="t-item must">
+        <div class="t-time">1:30</div>
+        <div class="t-title">Central Park</div>
+        <div class="t-desc">Walk from AMNH (right next to park). Belvedere Castle, Bethesda Fountain, the Lake, Strawberry Fields (John Lennon memorial). 1.5 hours of walking.</div>
+        <div class="tags"><span class="tag must">Must</span><span class="tag fe">Free</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">3:00</div>
+        <div class="t-title">Subway to Downtown Heliport</div>
+        <div class="t-desc">Take 1/2/3 to Wall St / South Ferry area. Heliport is at Pier 6, Battery Maritime Building.</div>
+      </div>
+      <div class="t-item must book">
+        <div class="t-time">4:00</div>
+        <div class="t-title">Liberty Helicopter Tour (15-20 min flight)</div>
+        <div class="t-desc">Manhattan skyline from above! Statue of Liberty, Brooklyn Bridge, Central Park, World Trade Center — all visible. Kid will remember this forever.</div>
+        <div class="tip"><b>What to bring:</b> Photo ID for adults, payment confirmation, comfortable clothes. They weigh you (FAA rule). No selfie sticks. Arrive 30 min early.</div>
+        <div class="tags"><span class="tag must">Must</span><span class="tag kd">Kid memory</span><span class="tag book">Pre-book</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">5:00</div>
+        <div class="t-title">Done! Back to hotel</div>
+        <div class="t-desc">Big day — early dinner + relax.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">7:00 PM</div>
+        <div class="t-title">Dinner — your choice</div>
+        <div class="t-desc">Suggestion: Champs Diner (Brooklyn vegan diner — pancakes, mac, milkshakes, kid loves) or HanGawi (Korean veg upscale, Midtown).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WED MAY 6: NYC -> NIAGARA -->
+<div class="day open">
+  <div class="day-h" onclick="td(this)">
+    <div class="day-num c4"><div class="dd">WED</div><div class="nn">6</div></div>
+    <div class="day-i"><div class="dt">Fly NYC → Niagara · Maid of the Mist</div><div class="ds">Land BUF 11 AM · Drive to Falls · First Niagara experience</div></div>
+    <div class="arrow">▶</div>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-time">EARLY AM</div>
+        <div class="t-title">Hotel checkout · Cab to airport</div>
+        <div class="t-desc">Check flight time — leave hotel 3 hrs before flight (with kid). Uber/Lyft to JFK/LGA/EWR.</div>
+        <div class="tags"><span class="tag tr">Uber/Lyft</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">11:00 AM</div>
+        <div class="t-title">Land at Buffalo Niagara Intl (BUF)</div>
+        <div class="t-desc">Pick up rental car. ~30 min drive to Niagara Falls hotel.</div>
+        <div class="tags"><span class="tag tr">Rental car needed</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">12:30 PM</div>
+        <div class="t-title">Hotel check-in · Quick lunch</div>
+        <div class="t-desc">Drop bags. Suggested hotels: Sheraton at the Falls, Hilton Niagara Falls, Marriott on the Falls (Canadian — passport needed).</div>
+      </div>
+      <div class="t-item must book">
+        <div class="t-time">2:00</div>
+        <div class="t-title">Maid of the Mist boat ride</div>
+        <div class="t-desc">THE classic. Boat goes RIGHT under the falls. Get soaked (they give ponchos). 30 min. Walk-up tickets but lines can be 30-60 min — go in the afternoon when crowds thin.</div>
+        <div class="tags"><span class="tag must">Must</span><span class="tag kd">Kid loves</span></div>
+      </div>
+      <div class="t-item must">
+        <div class="t-time">3:30</div>
+        <div class="t-title">Niagara Falls State Park walks</div>
+        <div class="t-desc">Goat Island, Bridal Veil Falls, Luna Island viewpoints. Free. 1 hour of walking. The American Falls and Horseshoe Falls both visible from various spots.</div>
+        <div class="tags"><span class="tag must">Must</span><span class="tag fe">Free</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">5:00 PM</div>
+        <div class="t-title">Observation Tower</div>
+        <div class="t-desc">$1.25 entry. Best straight-on view of both falls. Quick stop.</div>
+        <div class="tags"><span class="tag must">Must</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">6:00</div>
+        <div class="t-title">Back to hotel · Dinner</div>
+        <div class="t-desc">Hotel restaurant or Top of the Falls Restaurant (in State Park, has veg options) or Punjab Indian Restaurant nearby.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">9:00 PM</div>
+        <div class="t-title">Optional: Falls illumination</div>
+        <div class="t-desc">Falls are lit up in colors at night. Best viewed from Prospect Point (US side) or Canadian side bridge area. ~30 min.</div>
+        <div class="tags"><span class="tag fe">Free</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THU MAY 7: FULL NIAGARA -->
+<div class="day open">
+  <div class="day-h" onclick="td(this)">
+    <div class="day-num c5"><div class="dd">THU</div><div class="nn">7</div></div>
+    <div class="day-i"><div class="dt">Full Niagara Day</div><div class="ds">Cave of the Winds · Goat Island · Aquarium</div></div>
+    <div class="arrow">▶</div>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-time">9:00 AM</div>
+        <div class="t-title">Hotel breakfast · Easy start</div>
+      </div>
+      <div class="t-item must">
+        <div class="t-time">10:00</div>
+        <div class="t-title">Cave of the Winds (Hurricane Deck)</div>
+        <div class="t-desc">Walk down to wooden platforms at the BASE of Bridal Veil Falls. You'll get drenched (sandals + poncho provided). Most thrilling Niagara experience.</div>
+        <div class="tip"><b>Wear:</b> quick-dry clothes, no white shirts. Phone in waterproof bag (or leave in car). 1 hour.</div>
+        <div class="tags"><span class="tag must">Must</span><span class="tag kd">Kid thrill</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">11:30</div>
+        <div class="t-title">Lunch · Dry off</div>
+        <div class="t-desc">Top of the Falls Restaurant in State Park, or pack snacks. Limited veg options at Niagara — stock up if needed.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">1:00 PM</div>
+        <div class="t-title">Aquarium of Niagara (included in Discovery Pass)</div>
+        <div class="t-desc">Sharks, sea lions, penguins. ~1.5 hours. Kid friendly, indoor break from sun.</div>
+        <div class="tags"><span class="tag kd">Kid friendly</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">2:30</div>
+        <div class="t-title">Three Sisters Islands · Goat Island walks</div>
+        <div class="t-desc">Quieter side of the park, less crowded, gorgeous river/rapids views. Walking trails.</div>
+        <div class="tags"><span class="tag fe">Free</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">4:00</div>
+        <div class="t-title">Niagara Gorge Discovery Center</div>
+        <div class="t-desc">Geology of the falls, kid exhibits. 45 min. (Included in Discovery Pass.)</div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">5:30</div>
+        <div class="t-title">Back to hotel · Pack for early flight</div>
+        <div class="t-desc">Confirm rental car return time. Pack everything tonight.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">7:00 PM</div>
+        <div class="t-title">Final dinner · Falls illumination one more time</div>
+        <div class="t-desc">If energy allows, walk to falls one more time at night.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FRI MAY 8: FLY HOME -->
+<div class="day">
+  <div class="day-h" onclick="td(this)">
+    <div class="day-num c0"><div class="dd">FRI</div><div class="nn">8</div></div>
+    <div class="day-i"><div class="dt">Fly Home (Early Morning)</div><div class="ds">Wake early · Drive to BUF · Return car · Fly</div></div>
+    <div class="arrow">▶</div>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-time">EARLY</div>
+        <div class="t-title">Wake · Quick breakfast · Hotel checkout</div>
+        <div class="t-desc">Allow 30-45 min for drive + return rental + security. For 7 AM flight leave hotel by 4:30 AM. For 9 AM flight by 6 AM.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-time">AT BUF</div>
+        <div class="t-title">Return rental · Through TSA · Fly home</div>
+        <div class="t-desc">Trip complete!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== MUST-DO LISTS ====== -->
+
+<div class="section">
+  <h2 onclick="t(this)">NYC Must-Do List <span class="arrow">▶</span></h2>
+  <div class="body">
+    <div class="list-item"><div class="num">1</div><div class="info"><div class="name">Statue of Liberty + Ellis Island</div><div class="meta">Mon · Battery Park ferry · Pre-book</div></div></div>
+    <div class="list-item"><div class="num">2</div><div class="info"><div class="name">9/11 Memorial + Museum</div><div class="meta">Mon · Lower Manhattan · Pre-book</div></div></div>
+    <div class="list-item"><div class="num">3</div><div class="info"><div class="name">One World Observatory</div><div class="meta">Mon · Top of WTC · Pre-book</div></div></div>
+    <div class="list-item"><div class="num">4</div><div class="info"><div class="name">Times Square (at night!)</div><div class="meta">Multiple evenings · Free</div></div></div>
+    <div class="list-item"><div class="num">5</div><div class="info"><div class="name">Color Factory (kid favorite)</div><div class="meta">Sun · SoHo · Pre-book</div></div></div>
+    <div class="list-item"><div class="num">6</div><div class="info"><div class="name">Top of the Rock</div><div class="meta">Sun · Best Manhattan view · Pre-book</div></div></div>
+    <div class="list-item"><div class="num">7</div><div class="info"><div class="name">Central Park</div><div class="meta">Tue · Free walking</div></div></div>
+    <div class="list-item"><div class="num">8</div><div class="info"><div class="name">Helicopter Tour</div><div class="meta">Tue · Liberty Helicopters · Pre-book</div></div></div>
+    <div class="list-item"><div class="num">9</div><div class="info"><div class="name">American Museum of Natural History</div><div class="meta">Tue · Dinosaurs! · Pre-book</div></div></div>
+    <div class="list-item"><div class="num">10</div><div class="info"><div class="name">Rockefeller Center walk</div><div class="meta">Sun · Free</div></div></div>
+    <div class="list-item"><div class="num">11</div><div class="info"><div class="name">Brooklyn Bridge walk</div><div class="meta">Mon (optional) · Free</div></div></div>
+    <div class="list-item"><div class="num">12</div><div class="info"><div class="name">High Line elevated park</div><div class="meta">Sun · Free</div></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2 onclick="t(this)">Niagara Must-Do List <span class="arrow">▶</span></h2>
+  <div class="body">
+    <div class="list-item"><div class="num">1</div><div class="info"><div class="name">Maid of the Mist boat ride</div><div class="meta">Wed · Discovery Pass</div></div></div>
+    <div class="list-item"><div class="num">2</div><div class="info"><div class="name">Cave of the Winds (Hurricane Deck)</div><div class="meta">Thu · Discovery Pass</div></div></div>
+    <div class="list-item"><div class="num">3</div><div class="info"><div class="name">Niagara Falls State Park walks</div><div class="meta">Wed · Free</div></div></div>
+    <div class="list-item"><div class="num">4</div><div class="info"><div class="name">Observation Tower</div><div class="meta">Wed · $1.25</div></div></div>
+    <div class="list-item"><div class="num">5</div><div class="info"><div class="name">Aquarium of Niagara</div><div class="meta">Thu · Discovery Pass · Kid favorite</div></div></div>
+    <div class="list-item"><div class="num">6</div><div class="info"><div class="name">Falls illumination at night</div><div class="meta">Wed/Thu · Free</div></div></div>
+    <div class="list-item"><div class="num">7</div><div class="info"><div class="name">Goat Island + Three Sisters Islands</div><div class="meta">Thu · Free walks</div></div></div>
+  </div>
+</div>
+
+<!-- ====== TRANSIT ====== -->
+
+<div class="section">
+  <h2 onclick="t(this)">NYC Transit (Easy Guide) <span class="arrow">▶</span></h2>
+  <div class="body">
+    <p style="font-size:14px;font-weight:700;color:#1e3a8a;">The ONE rule: Use OMNY.</p>
+    <p style="font-size:13px;color:#4b5563;margin-top:6px;">
+      Just <b>tap your credit card or phone</b> on the OMNY reader at any subway turnstile. No need to buy MetroCard.
+      $2.90 per ride. Free transfers within 2 hours. Tap once per person.
+    </p>
+    <p style="font-size:13px;color:#4b5563;margin-top:10px;">
+      <b>For kid:</b> kids under 44 inches tall ride free. No tap needed.
+    </p>
+    <p style="font-size:13px;color:#4b5563;margin-top:10px;">
+      <b>Apps to install:</b>
+    </p>
+    <ul style="font-size:13px;color:#4b5563;margin-left:20px;margin-top:4px;line-height:1.7;">
+      <li><b>Google Maps</b> — best for subway directions</li>
+      <li><b>Citymapper</b> — even better, shows live arrivals</li>
+      <li><b>Uber / Lyft</b> — for late nights or with luggage</li>
+    </ul>
+    <p style="font-size:13px;color:#4b5563;margin-top:10px;">
+      <b>Avoid rush hour:</b> 7-9 AM and 5-7 PM (subways packed).
+    </p>
+    <p style="font-size:13px;color:#4b5563;margin-top:10px;">
+      <b>From airports to hotel (with luggage):</b>
+    </p>
+    <table>
+      <tr><th>From</th><th>Best</th><th>Time</th></tr>
+      <tr><td>JFK</td><td>Uber/Lyft (~$70)</td><td>50-70 min</td></tr>
+      <tr><td>LGA</td><td>Uber/Lyft (~$50)</td><td>30-45 min</td></tr>
+      <tr><td>EWR</td><td>Uber/Lyft (~$80)</td><td>40-60 min</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ====== FOOD ====== -->
+
+<div class="section">
+  <h2 onclick="t(this)">Veg / Vegan Restaurants <span class="arrow">▶</span></h2>
+  <div class="body">
+
+    <p style="font-size:13px;font-weight:700;color:#1e3a8a;margin-bottom:6px;">NYC — Indian (best variety)</p>
+    <div class="food-row">
+      <div class="food-name">Saravanaa Bhavan (Curry Hill)</div>
+      <div class="food-meta">81 Lexington Ave · Pure veg South Indian · Famous dosas</div>
+    </div>
+    <div class="food-row">
+      <div class="food-name">Pongal</div>
+      <div class="food-meta">Curry Hill · Pure veg, kosher-friendly thali</div>
+    </div>
+    <div class="food-row">
+      <div class="food-name">Vatan</div>
+      <div class="food-meta">East Village · Gujarati all-you-can-eat thali · Great for family</div>
+    </div>
+
+    <p style="font-size:13px;font-weight:700;color:#1e3a8a;margin-top:14px;margin-bottom:6px;">NYC — Other veg/vegan</p>
+    <div class="food-row">
+      <div class="food-name">HanGawi</div>
+      <div class="food-meta">Korean vegetarian · Midtown · Beautiful zen ambiance · Sit on cushions</div>
+    </div>
+    <div class="food-row">
+      <div class="food-name">Buddha Bodai</div>
+      <div class="food-meta">Chinatown · Chinese vegetarian · Mock meats · Dim sum</div>
+    </div>
+    <div class="food-row">
+      <div class="food-name">Beyond Sushi</div>
+      <div class="food-meta">Vegan sushi · Multiple locations · Quick lunch</div>
+    </div>
+    <div class="food-row">
+      <div class="food-name">Veggie Grill</div>
+      <div class="food-meta">American vegan fast-casual · Multiple · Burgers + bowls · Kid-friendly</div>
+    </div>
+    <div class="food-row">
+      <div class="food-name">Bareburger</div>
+      <div class="food-meta">Burger chain · Many veggie/vegan options · Kid-friendly</div>
+    </div>
+    <div class="food-row">
+      <div class="food-name">Champs Diner (Brooklyn)</div>
+      <div class="food-meta">Vegan diner · Pancakes, milkshakes, mac & cheese · KID HEAVEN</div>
+    </div>
+    <div class="food-row">
+      <div class="food-name">Le Botaniste</div>
+      <div class="food-meta">Vegan bowls · Multiple · Healthy quick lunch</div>
+    </div>
+    <div class="food-row">
+      <div class="food-name">Plnt Burger</div>
+      <div class="food-meta">Vegan burgers · Multiple · Quick</div>
+    </div>
+
+    <p style="font-size:13px;font-weight:700;color:#1e3a8a;margin-top:14px;margin-bottom:6px;">Niagara Falls (limited)</p>
+    <div class="food-row">
+      <div class="food-name">Top of the Falls Restaurant</div>
+      <div class="food-meta">In Niagara Falls State Park · Has veg pasta, salads</div>
+    </div>
+    <div class="food-row">
+      <div class="food-name">Punjab Indian Restaurant</div>
+      <div class="food-meta">Niagara Falls NY · Vegetarian options</div>
+    </div>
+    <div class="food-row">
+      <div class="food-name">Bareburger</div>
+      <div class="food-meta">Buffalo area · Vegan/veggie burgers</div>
+    </div>
+    <div class="food-row">
+      <div class="food-name">Tim Hortons</div>
+      <div class="food-meta">Multiple · Bagels, donuts, veg sandwiches · Easy quick stops</div>
+    </div>
+    <div class="tip" style="margin-top:14px;">
+      <b>Pro tip for Niagara:</b> Pack snacks. Niagara is a tourist food desert. Stock up at Tops Friendly Market or Wegmans before heading to falls.
+    </div>
+  </div>
+</div>
+
+<!-- ====== TIPS ====== -->
+
+<div class="section">
+  <h2 onclick="t(this)">Pro Tips <span class="arrow">▶</span></h2>
+  <div class="body">
+    <p style="font-size:13px;color:#4b5563;line-height:1.6;">
+      <b>1. Bring comfortable walking shoes.</b> NYC days = 15,000-20,000 steps.<br><br>
+      <b>2. Layers.</b> NYC in May: 50-70°F, can rain. Niagara: 50-65°F, often windy/wet near falls.<br><br>
+      <b>3. Power bank.</b> Phones drain fast with maps + photos.<br><br>
+      <b>4. Cash $50.</b> Most places take cards but small vendors and tips.<br><br>
+      <b>5. Photo ID for adults.</b> Required at observation decks, helicopter, etc.<br><br>
+      <b>6. Niagara: bring a change of clothes.</b> Maid of Mist + Cave of Winds = soaked.<br><br>
+      <b>7. Statue of Liberty: arrive 30 min early.</b> Security check like airport.<br><br>
+      <b>8. NYC: avoid Times Square restaurants.</b> Tourist traps. Walk 2 blocks away for better food.<br><br>
+      <b>9. Subway etiquette:</b> stand right on escalators, walk left. Don't block doors. Be quiet.<br><br>
+      <b>10. Tipping:</b> 18-20% at restaurants, $1-2 per drink at bars, $1-2/bag for hotel bell staff.
+    </p>
+  </div>
+</div>
+
+<!-- ====== EMERGENCY INFO ====== -->
+
+<div class="section">
+  <h2 onclick="t(this)">Emergency / Important Numbers <span class="arrow">▶</span></h2>
+  <div class="body">
+    <p style="font-size:14px;line-height:2;">
+      <b>911</b> — Emergency (police, fire, ambulance) in US<br>
+      <b>311</b> — Non-emergency NYC info<br>
+      <b>NYC Subway Customer Service:</b> 511<br>
+      <b>Liberty Helicopters:</b> +1-212-967-6464<br>
+      <b>Maid of the Mist:</b> +1-716-284-8897<br>
+      <b>Niagara Falls State Park:</b> +1-716-278-1796<br>
+      <b>Apple Support (in case):</b> +1-800-275-2273
+    </p>
+  </div>
+</div>
+
+<script>
+function t(el) {
+  el.parentElement.classList.toggle('open');
+}
+function td(el) {
+  el.parentElement.classList.toggle('open');
+}
+function ck(el) {
+  el.classList.toggle('done');
+  el.querySelector('.cb').textContent = el.classList.contains('done') ? '✓' : '';
+  saveChecks();
+}
+function saveChecks() {
+  var states = [];
+  document.querySelectorAll('.checkitem').forEach(function(e){ states.push(e.classList.contains('done')); });
+  localStorage.setItem('ny_checks', JSON.stringify(states));
+}
+function loadChecks() {
+  try {
+    var s = JSON.parse(localStorage.getItem('ny_checks'));
+    if (s) document.querySelectorAll('.checkitem').forEach(function(e, i){
+      if (s[i]) { e.classList.add('done'); e.querySelector('.cb').textContent = '✓'; }
+    });
+  } catch(e) {}
+}
+loadChecks();
+</script>
+</body>
+</html>
+</content>
