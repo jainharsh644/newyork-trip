@@ -213,52 +213,99 @@ a:active { color: #1e40af; }
 <div class="section open">
   <h2 onclick="t(this)">Pre-Book Checklist (do this week!) <span class="arrow">▶</span></h2>
   <div class="body">
-    <p style="font-size:13px;color:#4b5563;margin-bottom:8px;">Tap to mark done. Don't show up without these — many sell out.</p>
-    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
-      <div class="ck-text"><b>Statue of Liberty + Ellis Island</b> — Mon · <a href="https://www.statuecruises.com" target="_blank">statuecruises.com</a></div>
-      <div class="ck-cost">$25 / $16</div>
-    </div>
-    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
-      <div class="ck-text"><b>9/11 Memorial Museum</b> — Mon · <a href="https://www.911memorial.org" target="_blank">911memorial.org</a></div>
-      <div class="ck-cost">$33 / $21</div>
-    </div>
-    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
-      <div class="ck-text"><b>Edge at Hudson Yards</b> (sunset) — Tue · <a href="https://www.edgenyc.com" target="_blank">edgenyc.com</a></div>
-      <div class="ck-cost">$44 / $38</div>
-    </div>
-    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
-      <div class="ck-text"><b>Top of the Rock</b> — Sun · <a href="https://www.rockefellercenter.com/attractions/top-of-the-rock-observation-deck/" target="_blank">rockefellercenter.com</a></div>
-      <div class="ck-cost">$43 / $37</div>
-    </div>
-    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
-      <div class="ck-text"><b>Color Factory</b> (KID FAVORITE) — Sun · <a href="https://www.colorfactory.co" target="_blank">colorfactory.co</a></div>
-      <div class="ck-cost">$39 each</div>
-    </div>
-    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
-      <div class="ck-text"><b>Liberty Helicopter Tour</b> — Tue · <a href="https://libertyhelicopter.com" target="_blank">libertyhelicopter.com</a></div>
-      <div class="ck-cost">$214+</div>
-    </div>
-    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
-      <div class="ck-text"><b>Niagara Falls USA Discovery Pass</b> — Wed · <a href="https://www.niagarafallsstatepark.com/plan-your-visit/discover-niagara-shuttle-and-discovery-pass" target="_blank">niagarafallsstatepark.com</a></div>
-      <div class="ck-cost">$52 / $42</div>
-    </div>
-    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
-      <div class="ck-text"><b>Rental car at BUF airport</b> — May 6 · book now</div>
-      <div class="ck-cost">~$60/day</div>
-    </div>
-    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
-      <div class="ck-text"><b>NYC hotel</b> — Hyatt Centric Times Square ✓ booked</div>
-      <div class="ck-cost"></div>
-    </div>
-    <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
-      <div class="ck-text"><b>Niagara hotel</b> — Sheraton at the Falls / Hilton Niagara Falls</div>
-      <div class="ck-cost"></div>
+    <p style="font-size:13px;color:#4b5563;margin-bottom:14px;">Two PASSES cover most attractions. Then 4 things must be booked separately. Tap to mark done.</p>
+
+    <!-- PASS 1: CityPASS NYC -->
+    <div style="background:#eff6ff;border:2px solid #3b82f6;border-radius:10px;padding:12px;margin-bottom:14px;">
+      <p style="font-size:14px;font-weight:700;color:#1e3a8a;">📦 PASS 1 — CityPASS NYC</p>
+      <p style="font-size:13px;color:#1e3a8a;margin-top:2px;font-weight:600;">$146 adult / $124 kid</p>
+      <p style="font-size:12px;color:#4b5563;margin-top:6px;">
+        <b>Buy 1 pass per person → covers ALL 4 of these</b>
+        (you don't book each separately):
+      </p>
+      <ul style="margin:8px 0 8px 20px;font-size:13px;color:#111827;line-height:1.7;">
+        <li>✅ Statue of Liberty + Ellis Island</li>
+        <li>✅ 9/11 Memorial Museum</li>
+        <li>✅ Edge at Hudson Yards</li>
+        <li>✅ Top of the Rock</li>
+      </ul>
+      <div class="checkitem" onclick="ck(this)" style="margin-top:6px;">
+        <div class="cb"></div>
+        <div class="ck-text"><b>Buy CityPASS NYC for 3 people</b> · <a href="https://www.citypass.com/new-york" target="_blank">citypass.com/new-york</a></div>
+        <div class="ck-cost">~$416 total</div>
+      </div>
+      <p style="font-size:11px;color:#6b7280;margin-top:8px;line-height:1.4;">
+        <b>If you choose individual tickets instead:</b> SoL $25/$16 · 9/11 $33/$21 · Edge $44/$38 · Top of Rock $43/$37. Roughly same cost — bundle is simpler.
+      </p>
     </div>
 
-    <p style="margin-top:14px;font-size:12px;color:#6b7280;line-height:1.5;">
-      <b>Save money tip:</b> Check <a href="https://www.citypass.com/new-york" target="_blank">CityPASS NYC</a> or <a href="https://gocity.com/new-york" target="_blank">Go City</a> bundles —
-      sometimes saves $30-60 per person if you're doing 4+ paid attractions.
-    </p>
+    <!-- PASS 2: Niagara Discovery Pass -->
+    <div style="background:#ecfdf5;border:2px solid #10b981;border-radius:10px;padding:12px;margin-bottom:14px;">
+      <p style="font-size:14px;font-weight:700;color:#065f46;">📦 PASS 2 — Niagara Falls USA Discovery Pass</p>
+      <p style="font-size:13px;color:#065f46;margin-top:2px;font-weight:600;">$52 adult / $42 kid</p>
+      <p style="font-size:12px;color:#4b5563;margin-top:6px;">
+        <b>Buy 1 pass per person → covers ALL 5 of these</b>
+        (you don't book each separately):
+      </p>
+      <ul style="margin:8px 0 8px 20px;font-size:13px;color:#111827;line-height:1.7;">
+        <li>✅ Maid of the Mist boat ride</li>
+        <li>✅ Cave of the Winds</li>
+        <li>✅ Aquarium of Niagara</li>
+        <li>✅ Niagara Gorge Discovery Center</li>
+        <li>✅ Observation Tower</li>
+        <li>✅ Discover Niagara Shuttle (free trolley between sites)</li>
+      </ul>
+      <div class="checkitem" onclick="ck(this)" style="margin-top:6px;">
+        <div class="cb"></div>
+        <div class="ck-text"><b>Buy Niagara Discovery Pass for 3 people</b> · <a href="https://www.niagarafallsstatepark.com/plan-your-visit/discover-niagara-shuttle-and-discovery-pass" target="_blank">niagarafallsstatepark.com</a></div>
+        <div class="ck-cost">~$146 total</div>
+      </div>
+    </div>
+
+    <!-- BOOK SEPARATELY -->
+    <div style="background:#fef3c7;border:2px solid #f59e0b;border-radius:10px;padding:12px;">
+      <p style="font-size:14px;font-weight:700;color:#92400e;">🎫 BOOK SEPARATELY — NOT in any pass</p>
+      <p style="font-size:12px;color:#4b5563;margin-top:6px;">These 4 things need their own booking:</p>
+
+      <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+        <div class="ck-text"><b>Color Factory</b> (kid favorite) — Sun · <a href="https://www.colorfactory.co" target="_blank">colorfactory.co</a></div>
+        <div class="ck-cost">$39 each</div>
+      </div>
+
+      <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+        <div class="ck-text"><b>Liberty Helicopter Tour</b> — Tue · <a href="https://libertyhelicopter.com" target="_blank">libertyhelicopter.com</a></div>
+        <div class="ck-cost">$214+ each</div>
+      </div>
+
+      <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+        <div class="ck-text"><b>Rental car at BUF airport</b> — May 6 pickup, May 8 return</div>
+        <div class="ck-cost">~$120 total</div>
+      </div>
+
+      <div class="checkitem" onclick="ck(this)"><div class="cb"></div>
+        <div class="ck-text"><b>Niagara hotel</b> — Sheraton at the Falls / Hilton Niagara Falls</div>
+        <div class="ck-cost">~$300 total</div>
+      </div>
+    </div>
+
+    <!-- ALREADY BOOKED -->
+    <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:10px 12px;margin-top:14px;">
+      <p style="font-size:13px;font-weight:700;color:#15803d;">✅ ALREADY BOOKED</p>
+      <p style="font-size:12px;color:#166534;margin-top:4px;line-height:1.6;">
+        • NYC hotel — Hyatt Centric Times Square<br>
+        • Flight PHX → NYC (May 2)<br>
+        • Flight NYC → BUF (May 6)<br>
+        • Flight BUF → home (May 8)
+      </p>
+    </div>
+
+    <!-- FREE / NO BOOKING -->
+    <div style="background:#f9fafb;border:1px solid #d1d5db;border-radius:10px;padding:10px 12px;margin-top:10px;">
+      <p style="font-size:13px;font-weight:700;color:#1f2937;">🆓 FREE — no booking needed</p>
+      <p style="font-size:12px;color:#4b5563;margin-top:4px;line-height:1.6;">
+        Times Square · Charging Bull · Brooklyn Bridge · Central Park · High Line · Rockefeller Center walk · Niagara Falls State Park walks · Falls illumination at night
+      </p>
+    </div>
   </div>
 </div>
 
